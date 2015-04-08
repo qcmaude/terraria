@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/qcmaude/terraria",
   "dependencies": {
-    "express": "^4.12.3"
+    "express": "^4.12.3",
+    "voronoi-map": "0.0.4"
   },
   "devDependencies": {
     "grunt": "^0.4.5"
