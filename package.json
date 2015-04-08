@@ -1,0 +1,25 @@
+{
+  "name": "terraria",
+  "version": "1.0.0",
+  "description": "COMP 521 Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qcmaude/terraria.git"
+  },
+  "author": "Maude Lemaire, Benjamin San Souci",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qcmaude/terraria/issues"
+  },
+  "homepage": "https://github.com/qcmaude/terraria",
+  "dependencies": {
+    "express": "^4.12.3"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}
