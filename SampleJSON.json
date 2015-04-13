@@ -1,0 +1,39 @@
+Object:
+	cells: Array[]
+	edges: Array[]
+	exectTime: int
+	vertices: Array[]
+
+Cell: Object
+	beach: false
+	biome: "OCEAN"
+	border: true
+	closeMe: false
+	coast: false
+	elevation: int
+	fishing: false
+	halfedges: Array[]
+	moisture: 1
+	ocean: true
+	site: 
+		x:
+		y:
+		voronoiId: 0
+	water: true
+
+Edges: Object
+	cliff: false
+	lSite: object
+		x: 60
+		y: 0
+		voronoiId: 0
+	rSite: Object
+		x: 60
+		y: 0
+		voronoiId: 0
+	va: Object
+		x: 65
+		y: 5.55
+	vb: Object
+		x: 65
+		y: 0

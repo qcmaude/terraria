@@ -1,8 +1,59 @@
+<!DOCTYPE html>
 <html>
-<head>
-<title>Terrain Generation</title>
-<script src="./src/bundle.js"></script>
-</head>
-<body>
-</body>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>Map</title>
+        
+        <link href="css/map.css" rel="stylesheet">
+
+        <script type="text/javascript" src="js/rhill-voronoi-core.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="js/paper.js"></script>
+        <script type="text/javascript" src="js/Simplex.js"></script>
+        <script type="text/javascript" src="js/perlin.js"></script>
+        <script type="text/javascript" src="js/Island.js"></script>
+	</head>
+
+	<body>
+        <canvas id="island" resize="true"></canvas>
+        <canvas id="fishing" resize="true"></canvas>
+        <canvas id="perlin" hidden="true"></canvas>
+        
+        <script type="application/javascript">
+            
+            var height = 300;
+            var width = 300;
+
+            paper.install(window);
+            document.getElementById("perlin")
+            window.onload = function(e) {
+                paper.setup('island');
+
+                var islandCanvas = document.getElementById('island');
+                var perlinCanvas = document.getElementById('perlin');
+
+                islandCanvas.onclick = function() {
+                    Island.toggleDebug();
+                    perlinCanvas.style.display = (perlinCanvas.style.display == 'block' ? 'none' : 'block');
+                };
+
+                Island.init({
+                    width: width,
+                    height: height,
+                    perlinWidth: 350,
+                    perlinHeight: 350,
+                    allowDebug: false,
+                    nbSites:1000,
+                    maxRiversSize: 1000,
+                    shading:0,
+                    nbGraphRelaxation: 0,
+                    shadeOcean:false,
+                    // allowDebug: true
+                });
+
+            };
+
+        </script>
+        <noscript>You need to enable Javascript in your browser for this page to display properly.</noscript>
+	</body>
 </html>
