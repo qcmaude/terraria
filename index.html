@@ -11,6 +11,7 @@
         <script type="text/javascript" src="js/paper.js"></script>
         <script type="text/javascript" src="js/Simplex.js"></script>
         <script type="text/javascript" src="js/perlin.js"></script>
+        <script type="text/javascript" src="js/seed-random.js"></script>
         <script type="text/javascript" src="js/Island.js"></script>
 	</head>
 
@@ -21,8 +22,8 @@
         
         <script type="application/javascript">
             
-            var height = 300;
-            var width = 300;
+            var height = 1000;
+            var width = 1000;
 
             paper.install(window);
             document.getElementById("perlin")
@@ -43,7 +44,7 @@
                     perlinWidth: 350,
                     perlinHeight: 350,
                     allowDebug: false,
-                    nbSites:1000,
+                    nbSites:50000,
                     maxRiversSize: 1000,
                     shading:0,
                     nbGraphRelaxation: 0,

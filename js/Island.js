@@ -1,6 +1,7 @@
 var DISPLAY_COLORS = {
     OCEAN: new paper.Color('#82caff'), //Different sections for different levels of fish availability
-    FISHING: new paper.Color('#1a8dff'), //Fishing area!
+    DEEP_WATER: new paper.Color('#52b5fe'), //Fishing area!
+    FISHING: new paper.Color('#39aafe'),
     BEACH: new paper.Color('#ffe98d'),
     LAKE: new paper.Color('#2f9ceb'),
     RIVER: new paper.Color('#369eea'),
@@ -22,7 +23,6 @@ var DISPLAY_COLORS = {
     TROPICAL_RAIN_FOREST: new paper.Color('#9cbba9'),
     TROPICAL_SEASONAL_FOREST: new paper.Color('#a9cca4'),
     SUBTROPICAL_DESERT: new paper.Color('#e9ddc7'),
-    FISH: new paper.Color('#1a8dff'),
     GOLD: new paper.Color('#ffd700'),
     SILVER: new paper.Color('#c0c0c0'),
     COAL: new paper.Color('#262626'),
@@ -45,7 +45,7 @@ var Island = {
         height: 500,
         perlinWidth: 256,
         perlinHeight: 256,
-        allowDebug: false, // if set to true, you can clic on the map to enter "debug" mode. Warning : debug mode is slow to initialize, set to false for faster rendering.
+        allowDebug: false, // if set to true, you can click on the map to enter "debug" mode. Warning : debug mode is slow to initialize, set to false for faster rendering.
         nbSites: 10000, // nb of voronoi cell
         sitesDistribution: 'hexagon', // distribution of the site : random, square or hexagon
         sitesRandomisation: 80, // will move each site in a random way (in %), for the square or hexagon distribution to look more random
@@ -89,6 +89,7 @@ var Island = {
         this.config.shading             = (userConfig.shading != undefined              ? userConfig.shading            : 0.35);
         this.config.shadeOcean          = (userConfig.shadeOcean != undefined           ? userConfig.shadeOcean         : true);
         this.config.volcano             = (userConfig.volcano != undefined              ? userConfig.volcano            : true);
+        this.config.tectonic             = (userConfig.tectonic != undefined            ? userConfig.tectonic           : true);        
         
         this.cellsLayer = new paper.Layer({name: 'cell'});
         this.riversLayer = new paper.Layer({name: 'rivers'});
@@ -105,10 +106,235 @@ var Island = {
         this.assignRivers();
         this.assignMoisture();
         this.assignBiomes();
-        this.createVolcano();
-        this.createEarthquakeFissure();
+        if(this.config.volcano) this.createVolcano();
+        if(this.config.tectonic) this.plateTectonics();
+        this.assignMinerals();
+        this.assignForestation();
         this.render();
-        this.printMap();
+        // this.printMap();
+    },
+
+    assignForestation: function() {
+        for (var i = 0; i < this.diagram.cells.length; i++) {
+            var cell = this.diagram.cells[i];
+            cell.trees = this.getForestation(cell);
+        }
+    },
+
+    assignFauna: function() {
+    for (var i = 0; i < this.diagram.cells.length; i++) {
+            var cell = this.diagram.cells[i];
+            cell.fauna = this.getForestation(cell);
+        }
+    },
+
+    getFauna: function(cell) {
+
+        switch(cell.biome) {
+            case 'VOLCANO': 
+                return 0;
+            case 'VOLCANO_OUTLINE': 
+                return 0;
+            case 'FISHING': 
+                return this.getRandomInt(80,90);
+            case 'DEEP_WATER': 
+                return this.getRandomInt(0,10);
+            case 'OCEAN': 
+                return this.getRandomInt(50,60);
+            case 'MARSH': 
+                return this.getRandomInt(5, 50);
+            case 'ICE': 
+                //Basically, only polar bears. Or penguins. Depends.
+                return this.getRandomInt(2,10);
+            case 'LAKE': 
+                //Could also be dependent on size of the lake.
+                return this.getRandomInt(40,50);
+            case 'BEACH': 
+                return 0;
+            case 'SNOW': 
+                return this.getRandomInt(3, 10);
+            case 'TUNDRA': 
+                return this.getRandomInt(1, 3);
+            case 'BARE': 
+                return 0;
+            case 'SCORCHED': 
+                return 0;
+            case 'TAIGA': 
+                return this.getRandomInt(30, 40);
+            case 'SHRUBLAND': 
+                return this.getRandomInt(10,20);
+            case 'TEMPERATE_DESERT': 
+                return this.getRandomInt(5,15);
+            case 'TEMPERATE_RAIN_FOREST': 
+                return this.getRandomInt(80,100);
+            case 'TEMPERATE_DECIDUOUS_FOREST': 
+                return this.getRandomInt(85,95);
+            case 'GRASSLAND': 
+                return this.getRandomInt(30,50);
+            case 'TROPICAL_RAIN_FOREST': 
+                return this.getRandomInt(95,100);
+            case 'TROPICAL_SEASONAL_FOREST': 
+                return this.getRandomInt(70,90);
+            case 'SUBTROPICAL_DESERT': ;
+                return this.getRandomInt(10,20);
+        }
+
+    },
+
+    getForestation: function(cell) {
+        switch(cell.biome) {
+            case 'VOLCANO': 
+                return 0;
+            case 'VOLCANO_OUTLINE': 
+                return 0;
+            case 'FISHING': 
+                return 0;
+            case 'DEEP_WATER': 
+                return 0;
+            case 'OCEAN': 
+                return 0;
+            case 'MARSH': 
+                return this.getRandomInt(5, 50);
+            case 'ICE': 
+                return 0;
+            case 'LAKE': 
+                return 0;
+            case 'BEACH': 
+                return 0;
+            case 'SNOW': 
+                return this.getRandomInt(3, 10);
+            case 'TUNDRA': 
+                return this.getRandomInt(1, 3);
+            case 'BARE': 
+                return 0;
+            case 'SCORCHED': 
+                return 0;
+            case 'TAIGA': 
+                return this.getRandomInt(10, 20);
+            case 'SHRUBLAND': 
+                return this.getRandomInt(20,40);
+            case 'TEMPERATE_DESERT': 
+                return this.getRandomInt(2,5);
+            case 'TEMPERATE_RAIN_FOREST': 
+                return this.getRandomInt(90,100);
+            case 'TEMPERATE_DECIDUOUS_FOREST': 
+                return this.getRandomInt(85,100);
+            case 'GRASSLAND': 
+                return this.getRandomInt(30,50);
+            case 'TROPICAL_RAIN_FOREST': 
+                return this.getRandomInt(95,100);
+            case 'TROPICAL_SEASONAL_FOREST': 
+                return this.getRandomInt(90,100);
+            case 'SUBTROPICAL_DESERT': ;
+                return this.getRandomInt(10,20);
+        }
+    },
+
+    getMinerals: function(cell) {
+
+        var mineralObj = {
+            gold: 0,
+            silver: 0, 
+            coal: 0,
+            gems: 0,
+            aluminium: 0,
+            copper: 0,
+            iron: 0,
+            lead: 0,
+            nickel: 0,
+            titanium: 0,
+            uranium: 0,
+            zinc: 0
+        };
+
+        var random = this.getRandomInt(0, 100);
+
+        //Minerals are distributed according to the biome and rarity.
+        //There can anywhere between 0 and 100 items.
+        if(cell.volcano) {
+            //Gems can be there
+            if(random == 0) {
+                mineralObj.gems = this.getRandomInt(0,100);
+                return mineralObj;
+            }
+        } else if (cell.volcanoOutline) {
+            //Gems can be there
+            if(random == 0) {
+                mineralObj.gems = this.getRandomInt(0,100);
+                return mineralObj;
+            }
+        } else if(cell.water) {
+            //No minerals available in low elevation/watery terrain
+        } else if (cell.elevation > 0.4) {
+            if (cell.moisture > 0.33) {
+                //Zinc is in colder areas
+                if(random < 5) {
+                    mineralObj.zinc = this.getRandomInt(0,100);
+                    return mineralObj;
+                }
+            }
+        } else if (cell.elevation > 0.3) {
+            if (cell.moisture > 0.66) {
+                //Maybe add gold or silver
+                if(random == 0) {
+                    mineralObj.gold = this.getRandomInt(0,100);
+                    return mineralObj;
+                }
+            }
+            else if (cell.moisture > 0.33) {
+                //Maybe add gold or silver
+                if(random == 0) {
+                    mineralObj.silver = this.getRandomInt(0,100);
+                    return mineralObj;
+                }
+            }
+        } else if (cell.elevation > 0.15) {
+            if (cell.moisture > 0.83) {
+                //Maybe add gems, aluminium or copper
+                if(random == 0) {
+                    mineralObj.gems = this.getRandomInt(0,100);
+                    return mineralObj;
+                } else if (random < 3) {
+                    mineralObj.aluminium = this.getRandomInt(0,100);
+                    return mineralObj;
+                } else if (random < 10) {
+                    mineralObj.copper = this.getRandomInt(0,100);
+                    return mineralObj;
+                }
+            }
+            else if (cell.moisture > 0.50) {
+                //Maybe add iron, lead or nickel
+                if (random < 4) {
+                    mineralObj.iron = this.getRandomInt(0,100);
+                    return mineralObj;
+                } else if (random < 6) {
+                    mineralObj.lead = this.getRandomInt(0,100);
+                    return mineralObj;
+                } else if (random < 8) {
+                    mineralObj.nickel = this.getRandomInt(0,100);
+                    return mineralObj;
+                }
+            }
+            else if (cell.moisture > 0.16) {
+                //Maybe add gold or silver
+                if (random < 3) {
+                    mineralObj.titanium = this.getRandomInt(0,100);
+                    return mineralObj;
+                } else if (random == 0) {
+                    mineralObj.uranium = this.getRandomInt(0,100);
+                    return mineralObj;
+                } 
+            }
+        } else {
+            if (cell.moisture > 0.16) {
+                if (random < 6) {
+                    mineralObj.coal = this.getRandomInt(0,100);
+                    return mineralObj;
+                }
+            }
+        }
+
+        return mineralObj;
     },
 
     randomSites: function (n) {
@@ -244,7 +470,7 @@ var Island = {
 
         //Yeah, this should be cleaned up.
         for(var j = 0; j < degree; j++) {
-            var cell = oceanCells[this.getRandomArbitrary(0,oceanCells.length)];
+            var cell = oceanCells[this.getRandomInt(0,oceanCells.length)];
             cell.fishing = true;
             var neighbors = cell.getNeighborIds();
             for (var k = 0; k < neighbors.length; k++) {
@@ -291,10 +517,6 @@ var Island = {
                 }
             }
         }
-    },
-
-    getRandomArbitrary: function(min, max) {
-            return Math.floor(Math.random() * (max - min) + min);
     },
     
     assignOceanCoastAndLand: function() {
@@ -402,7 +624,7 @@ var Island = {
             cell.riverSize = size;
             var lowerCell = null;
             var neighbors = cell.getNeighborIds();
-            // we choose the lowest neighbour cell :
+            // we choose the lowest neighbour cell:
             for (var j = 0; j < neighbors.length; j++) {
                 var nId = neighbors[j];
                 var neighbor = this.diagram.cells[nId];
@@ -457,8 +679,55 @@ var Island = {
 
     },
 
-    createEarthquakeFissure: function() {
+    plateTectonics: function() {
 
+        //Choose how many tectonic plates the island lies on
+        var random = this.getRandomInt(2,4);
+
+        var maxA = 0;
+        var maxACell = {};
+        var maxB = 0;
+        var maxBCell = {};
+        var maxC = 0;
+        var maxCCell = {};
+        var maxD = 0;
+        var maxDCell = {};
+
+        for(var i = 0; i < this.diagram.cells.length; i++) {
+            var cell = this.diagram.cells[i];
+            if(this.getRealElevation(cell) >= maxA) {
+                maxA = this.getRealElevation(cell);
+                maxACell = cell;
+            } else if (this.getRealElevation(cell) >= maxB) {
+                maxB = this.getRealElevation(cell);
+                maxBCell = cell;
+            } else if (this.getRealElevation(cell) >= maxC) {
+                maxC = this.getRealElevation(cell);
+                maxCCell = cell;
+            } else if (this.getRealElevation(cell) >= maxD) {
+                maxD = this.getRealElevation(cell);
+                maxDCell = cell;
+            }
+        }
+
+        switch(random) {
+            case 2:
+                //Two plates coming together; use two max values 
+                //to make a line determining where the plates come together.
+                //Choose a random point along the edge (either x = 0, y = 0, x = height, y = height)
+                
+                break;
+            case 3:
+                //Three plates coming together; calculate polygons
+                break;
+            case 4:
+                //Four plates coming together; calculate polygons
+                break;
+            default:
+                break;
+        }
+
+        this.
 
     },
     
@@ -561,17 +830,24 @@ var Island = {
             cell.biome = this.getBiome(cell);
         }
     },
+
+    assignMinerals: function() {
+        for (var i = 0; i < this.diagram.cells.length; i++) {
+            var cell = this.diagram.cells[i];
+            cell.minerals = this.getMinerals(cell);
+        }
+    },
     
     getBiome: function (cell) {
         if(cell.volcano) {
-            console.log(cell);
             return 'VOLCANO';
         } else if (cell.volcanoOutline) {
-            console.log(cell);
             return 'VOLCANO_OUTLINE';
-        } else if(cell.fishing) {
-            return 'FISHING';
+        } else if (cell.fishing) {
+            if (this.getRealElevation(cell) < -0.13) return 'FISHING';
+            return 'DEEP_WATER';
         } else if (cell.ocean) {
+            if (this.getRealElevation(cell) < -0.13) return 'DEEP_WATER';
             return 'OCEAN';
         } else if (cell.water) {
             if (this.getRealElevation(cell) < 0.05) return 'MARSH';
@@ -581,80 +857,22 @@ var Island = {
             return 'BEACH';
         } else if (cell.elevation > 0.4) {
             if (cell.moisture > 0.50) return 'SNOW';
-            else if (cell.moisture > 0.33) {
-                //Maybe add a zinc mine.
-                var random = this.getRandomInt(0, 100);
-                if (random < 5) {
-                    return 'ZINC';
-                }
-                return 'TUNDRA';
-            }
+            else if (cell.moisture > 0.33) return 'TUNDRA';
             else if (cell.moisture > 0.16) return 'BARE';
             else return 'SCORCHED';
         } else if (cell.elevation > 0.3) {
-            if (cell.moisture > 0.66) {
-                //Maybe add gold or silver
-                var random = this.getRandomInt(0, 100);
-                if (random == 0) {
-                    return 'GOLD';
-                }
-                return 'TAIGA';
-            }
-            else if (cell.moisture > 0.33) {
-                //Maybe add gold or silver
-                var random = this.getRandomInt(0, 100);
-                if (random == 0) {
-                    return 'SILVER';
-                }
-                return 'SHRUBLAND';
-            }
+            if (cell.moisture > 0.66) return 'TAIGA';
+            else if (cell.moisture > 0.33) return 'SHRUBLAND';
             else return 'TEMPERATE_DESERT';
         } else if (cell.elevation > 0.15) {
-            if (cell.moisture > 0.83) {
-                //Maybe add gems, aluminium, or copper
-                var random = this.getRandomInt(0, 100);
-                if (random == 0) {
-                    return 'GEMS';
-                } else if (random < 3) {
-                    return 'ALUMINIUM';
-                } else if (random < 10) {
-                    return 'COPPER';
-                }
-                return 'TEMPERATE_RAIN_FOREST';
-            }
-            else if (cell.moisture > 0.50) {
-                //Maybe add iron, lead or nickel
-                var random = this.getRandomInt(0, 100);
-                if (random < 4) {
-                    return 'IRON';
-                } else if (random < 6) {
-                    return 'LEAD';
-                } else if (random < 8) {
-                    return 'NICKEL';
-                }
-                return 'TEMPERATE_DECIDUOUS_FOREST';
-            }
-            else if (cell.moisture > 0.16) {
-                //Maybe add gold or silver
-                var random = this.getRandomInt(0, 100);
-                if (random < 3) {
-                    return 'TITANIUM';
-                } else if (random == 0) {
-                    return 'URANIUM';
-                } 
-                return 'GRASSLAND';
-            }
+            if (cell.moisture > 0.83) return 'TEMPERATE_RAIN_FOREST';
+            else if (cell.moisture > 0.50) return 'TEMPERATE_DECIDUOUS_FOREST';
+            else if (cell.moisture > 0.16) return 'GRASSLAND';
             else return 'TEMPERATE_DESERT';
         } else {
             if (cell.moisture > 0.66) return 'TROPICAL_RAIN_FOREST';
             else if (cell.moisture > 0.33) return 'TROPICAL_SEASONAL_FOREST';
-            else if (cell.moisture > 0.16) {
-                var random = this.getRandomInt(0, 100);
-                if (random < 10) {
-                    return 'COAL';
-                }
-                return 'GRASSLAND';
-            }
+            else if (cell.moisture > 0.16) return 'GRASSLAND';
             else return 'SUBTROPICAL_DESERT';
         }
     },
@@ -684,7 +902,7 @@ var Island = {
         if (cell.water && cell.lakeElevation != null) {
             return cell.lakeElevation;
         } else if (cell.water && cell.elevation < 0) {
-            return 0;
+            return cell.elevation;
         } else {
             return cell.elevation;
         }
@@ -699,7 +917,7 @@ var Island = {
         this.renderRivers();
         this.renderEdges();
         this.renderSites();
-        
+
         paper.view.draw();
     },
     
@@ -807,10 +1025,12 @@ var Island = {
     
     getCellColor: function(cell) {
         var c = DISPLAY_COLORS[cell.biome].clone();
-        c.brightness = c.brightness - this.getShade(cell);
-        if (cell.biome == 'VOLCANO') {
-            console.log(DISPLAY_COLORS[cell.biome]);
+        for (var key in cell.minerals) {
+            if(cell.minerals[key] > 0) {
+                c = DISPLAY_COLORS[key.toUpperCase()].clone();
+            }
         }
+        c.brightness = c.brightness - this.getShade(cell);
         return c;
     },
     
