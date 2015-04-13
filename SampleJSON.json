@@ -1,4 +1,7 @@
-Object:
+Map: Object
+	diagram: Object
+
+Diagram: Object
 	cells: Array[]
 	edges: Array[]
 	exectTime: int
@@ -10,12 +13,12 @@ Cell: Object
 	border: true
 	closeMe: false
 	coast: false
-	elevation: int
+	elevation: int (range from -1 to 1)
 	fishing: false
 	halfedges: Array[]
-	moisture: 1
+	moisture: 1 (range from 0 to 1)
 	ocean: true
-	site: 
+	site:
 		x:
 		y:
 		voronoiId: 0
