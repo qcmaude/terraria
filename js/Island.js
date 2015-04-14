@@ -77,6 +77,7 @@ var Island = {
     riversLayer: null,
     debugLayer: null,
     cities: 0,
+    citiesMax: 6,
 
     init: function (userConfig) {        
         if (userConfig == undefined) {
@@ -1099,7 +1100,7 @@ var Island = {
             }
         }
         if(cell.city) {
-            c = CITY_COLORS[cell.city].clone();
+            c = CITY_COLORS[cell.city%this.cityMax].clone();
         }
         c.brightness = c.brightness - this.getShade(cell);
         return c;
@@ -1166,9 +1167,9 @@ var Island = {
     drawCity: function(cells) {
         for(var i = 0; i < cells.length; i++) {
             var cell = cells[i];
-            cell.city = cities;
+            cell.city = this.cities;
         }
-        cities++;
+        this.cities++;
     }
 
 };
