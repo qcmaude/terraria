@@ -41,10 +41,10 @@ var DISPLAY_COLORS = {
 
 var CITY_COLORS = {
     city0: new paper.Color('#800080'),
-    city1: new paper.Color('#0000b4'),
-    city2: new paper.Color('#ffbf00'),
+    city1: new paper.Color('#0101ff'),
+    city2: new paper.Color('#ffff00'),
     city3: new paper.Color('#ff3f00'),
-    city4: new paper.Color('#00b4b4'),
+    city4: new paper.Color('#ff0080'),
     city5: new paper.Color('#ce0067')
 };
 
@@ -983,7 +983,6 @@ var Island = {
             return 'BEACH';
         } else if (cell.elevation > 0.4) {
             if (cell.moisture > 0.50) return 'SNOW';
-            else if (cell.moisture > 0.33) return 'TUNDRA';
             else if (cell.moisture > 0.16) return 'BARE';
             else return 'SCORCHED';
         } else if (cell.elevation > 0.3) {

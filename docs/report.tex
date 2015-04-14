@@ -206,7 +206,7 @@ TerraGen was built as an extension to an existing JavaScript implementation of P
 Le Besnerais's implementation uses client-side JavaScript to render a map on an HTML5 canvas using Paper.js\cite{Lehni:2015:Online}, a JavaScript implementation of Voronoi diagrams by Raymond Hill \cite{Hill:2015:Online} and a Perlin noise generator by Sean McCullough\cite{McCullough:2015:Online}. Built-in functionality included basic island generation and biome assignment.
 
 \subsection{Island Generation}
-As provided with the existing implementation, terrains are generated on top of a relaxed polygonal grid. Island shape and size is determined by a randomly generated Perlin noise patch of given height and width (which can be seen as a separate \texttt{canvas} item within the rendered web page). Islands are highly configurable; a list of customizable parameters are shown in Listing 1. For the remainder of the report, it will be assumed that the island generated has a Perlin width and height of 350, canvas width and height of 1,000 and 50,000 polygons.
+As provided with the existing implementation, terrains are generated on top of a relaxed polygonal grid. Island shape and size is determined by a randomly generated Perlin noise patch of given height and width (which can be seen as a separate \texttt{canvas} item within the rendered web page). Islands are highly configurable; a list of customizable parameters are shown in Listing 1. For the remainder of the report, it will be assumed that the island generated has a Perlin width and height of 350, and 40,000 polygons.
 
 \begin{lstlisting}[caption=Island Parameters]
 Island.init({
@@ -219,7 +219,9 @@ Island.init({
     maxRiversSize: 1000,
     shading:0,
     nbGraphRelaxation: 0,
-    shadeOcean:false
+    shadeOcean:false,
+    volcano: true,
+    tectonic: true
 });
 \end{lstlisting}
 
@@ -228,19 +230,37 @@ A simple elevation mapping was included in the base Island.js code. In this impl
 
 This further ensures that elevation the ocean will always be reached when traveling downhill.
 
+<<<<<<< Updated upstream
 The provided elevation was extended to accomodate for
 Additional features such as plate tectonics and volcanoes were simulated on top of the generated elevation.
+=======
+The provided elevation was extended to accommodate for ocean depth. Ocean depth is correlated with fishing potential, which is also spread somewhat randomly across the ocean polygons. Lake depths can be visualized according to different shades of blue, where teal-colored lakes are much shallower than their darker counterparts. 
+>>>>>>> Stashed changes
 
-Used to map to fishing areas and randomized throughout the ocean.
+If the configuration specifies that volcanoes should be generated, a volcano will be generated at the tallest point on the island; it can be identified by its red center and dark grey neighbors. A tectonic plate simulation can also be optionally generated; this consists of finding the two maximal points on the island that are at a considerable distance (in comparison to the height and width of the map) and path-finding between these two points, and a randomly selected point on the edges, respectively.
 
 \subsection{Rivers}
-Allowed to pool into lakes and lake were allowed to empty into the ocean. Lake colors are distributed according to depth.
+The original river implementation provided in Le Besnerais's code remains largely untouched, with the exception of allowing rivers to pool into lakes (in addition to emptying out into the ocean).
+
+In the provided base implementation, rivers start at a randomly selected high point of elevation, and travel down the corners of polygons until they reach a polygon classified as being of type ``water''.
 
 \subsection{Biomes}
-Ice was added as an additional biome
+Biomes were distributed by traversing every cell and comparing its moisture and elevation levels to those of the fifteen biomes given in the Background section. Beyond the biomes previously mentioend, an additional ``Ice'' biome was added as an area of high elevation and of type ``water''. This allows for glaciers as an easy extension to the current environment. 
+
+Biomes were further developed by adding corresponding forestation levels and fauna.  
+A level of forestation was attributed to each biome, specified as a range of trees. After specifying the biome for each cell, the grid was traversed once more, where each cell was given a random number of trees given the range alloted for its forestation level. Similarly, biomes directly correlate to the level of biodiversity and quantity of animals is houses. A range for the amount of fauna available in a given biome was decided and for each cell, it was assigned a random value within that range.
 
 \subsection{Minerals}
+<<<<<<< Updated upstream
 Unique extension beyond the basic features provided in the starter code.
+=======
+Minerals are a unique extension beyond the basic island map generator. Using Melinda Dyar and Mickey E. Gunter's Mineralogy and Optical Mineralogy textbook and Figure 3 as key references, some common minerals necessary for early civilizations were identified. These minerals were then distributed into a series of biomes within which they would likely be found (dependent on the necessary environment conditions to ensure their formation) and assigned a relative rarity. Figure 4 shows each of the biomes, the corresponding fauna and forestation range and the available minerals with their respective rarity. 
+
+\begin{figure}
+\includegraphics[width=\textwidth]{AdditionalFeatures.png}
+\caption{Biomes and their respective forestation, fauna and minerals}
+\end{figure}
+>>>>>>> Stashed changes
 
 \subsection{Terrain Analysis}
 The intent behind TerraGen's terrain analysis is to generate initial statistics for cities. After the island is generated, the terrain analysis portion of the implementation receives the grid. Six cities are randomly distributed on the island, with randomly assigned curiosity and aggressiveness attributes. Listing 2 demonstrates a sample city JSON item.
@@ -328,7 +348,7 @@ To calculate accessible resources, the city is given a collecting power, determi
 
 \begin{equation}
 \begin{split}
-CITY\_POWER = \frac{(1+city.technology)}{MAX\_TECH} \times \\ (city.populationSize - city.artistNumber - city.armySize) \times \\ WORK\_EFFICIENCY + city.armySize \times \\ARMY\_WORK\_EFFICIENCY
+CITY\ POWER = \frac{(1+city.technology)}{MAX\_TECH} \times \\ (city.populationSize - city.artistNumber - city.armySize) \times \\ WORK\_EFFICIENCY + city.armySize \times \\ARMY\_WORK\_EFFICIENCY
 \end{split}
 \end{equation}
 
@@ -336,7 +356,7 @@ Global constants (see below) are used to define how much technology is needed to
 
 \begin{equation}
 \begin{split}
-MINERAL\_QUANTITY = Math.floor(Math.min(cell.mineralQuantity, \\ COLLECT\_POWER \times (1 - \frac{MINERAL\_MODIF}{MAX\_MODIF}))
+MINERAL\ QUANTITY = Math.floor(Math.min(cell.mineralQuantity, \\ COLLECT\_POWER \times (1 - \frac{MINERAL\_MODIF}{MAX\_MODIF}))
 \end{split}
 \end{equation}
 
@@ -344,20 +364,27 @@ MINERAL\_QUANTITY = Math.floor(Math.min(cell.mineralQuantity, \\ COLLECT\_POWER 
 Population size is determined by looking at the life conditions available at each cell controlled by the city and the cell's distance from the city center. A bigger population will require more resources but will enable the city to expand or conquer other cities' territories.
 
 \begin{equation}
-\sum (1 - getLifeConditions(city.center, c)) * 100
+\sum_{all\ city\ cells} (1 - getLifeConditions(city.center, c)) * 100
 \end{equation}
 
 Beyond population, a closer look is taken at the proportion of citizens that are artists or enlisted in the army. Due to the fact that zinc is an important mineral in paint, the number of artists is directly proportional to the amount of zinc controlled by the city. In future work, the number of artists will influence the city's artistic power and therefore it's importance in the world.
 
 \subsubsection{Overall Economical Power and Technology}
 Economical power is determined according to the amount of gold controlled by the city over the total available amount of gold contained on the map; the quantity of gems acts as an additive component to the economical power but is not affected by its total availability on the generated island.
+
 The technology power is calculated as follows:
-Technology = cityTechnology * TECH_GROWTH + SUM over all minerals [mineralQuantity * (1 - cityAggressiveness) * MINERAL_MODIF]
+\begin{equation}
+\begin{split}
+Technology = cityTechnology \times TECH\_GROWTH + \\ SUM over all minerals [mineralQuantity \times \\ (1 - cityAggressiveness) \times MINERAL\_MODIF]
+\end{split}
+\end{equation}
 
 \section{Results}
-We've come up with constants that allow cities to survive about 58\% of the time. This ratio makes sense since cities are placed at random at the start. We can expect half of them to survive.
-All of the constants that we used in the terrain analysis try to make sense out of the data in the map, independently from the probabilities from the terrain generator.
-The following materials modifiers describe their importance and how hard they are to mine (they are out of 100). The technological power of cities allow them to get more minerals out of the land they control.
+Constants were generated allowing cities to survive (expand reasonably) approximately 58\% of the time, which can be expected due to the fact that cities are initialized at random positions on the terrain. The average population size of a surviving city is just over 12,500. Figure 5 shows a sample generated map with cities in bright red, blue, purple, yellow, orange and pink.
+
+All of the constants used in the terrain analysis try to make sense out of the data in the map, independently from the probabilities from the terrain generator. The following materials modifiers (Listing 4) describe each mineral's importance and how difficult each is to mine (out of 100). The technological power of cities allows them to get more minerals out of the land they control.
+
+\begin{lstlisting}
 COPPER_MODIF = 10
 SILVER_MODIF = 10
 COAL_MODIF = 10
@@ -370,20 +397,31 @@ GOLD_MODIF = 60
 GEMS_MODIF = 70
 URANIUM_MODIF = 80
 TITANIUM_MODIF = 80
+\end{lstlisting}
 
 The following two modifiers are used to give more importance to food independently from how the map is generated.
+
+\begin{lstlisting}
 MEAT_MODIF = 2
 VEGETABLES_MODIF = 2
+\end{lstlisting}
 
 The worker strength is used to describe how much the non-armed population can do when conquering a new cell.
+\begin{lstlisting}
 WORKER_STRENGTH = 0.2
+\end{lstlisting}
 
 The technology growth is used to describe how much technology grows on its own. This means that technology enables more technology as one would expect.
+\begin{lstlisting}
 TECH_GROWTH = 2
+\end{lstlisting}
 
+\subsection{Emergent Behaviors}
+It's extremely viable to be on an island because the height is bounded by the radius of the island. This leads to a much more uniform climate, making it easy for the city natives to the island to move anywhere and control all of it. The small height variations also make the soil's fertility pretty uniform and the fauna very present. This increased accessibility to terrain and small height variation enables the city to thrive. Emergent behaviors can be seen in Figure 6.
 
-It's extremely viable to be on an island because the height is bounded by the radius of the island. This leads to a much more uniform climate, making it easy for the city natives to the island to move anywhere and control all of it. The small height variations also make the soil's fertility pretty uniform and the fauna very present. This increased accessibility to terrain and small height variation enables the city to thrive.
-Here's an example of a city on an island:
+The listing below shows an example of a city on an island.
+
+\begin{lstlisting}
 {
   resources:{
     vegetables:31315,
@@ -413,12 +451,24 @@ Here's an example of a city on an island:
   artistNumber:0,
   economy:0
 }
-Screenshot: https://www.dropbox.com/s/g63g29sa9sj6hbt/Screenshot%202015-04-14%2016.10.10.png?dl=0
+\end{lstlisting}
 
+\begin{figure}
+\includegraphics[width=\textwidth]{Sample2.png}
+\caption{Generated Map}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\textwidth]{Emergent.png}
+\caption{Emergent behaviors visualized in a sample generated map}
+\end{figure}
 
 \section{Conclusions and Future Improvements}
+Due to the fact that there were numerous influential aspects in the terrain, it was difficult to balance a city's dependency on certain factors in order to make it viable. In certain instances, not only was the city generated at a very inhospitable location on the map, it was rather far from key resources it required to expand and would thus only span a few grid units. 
 
-Speed could be optimized.
+Future improvements could include speed optimizations by reducing the number of times the entire grid is traversed and ensure that the rendering is done in an efficient way. Additionally, a graphical menu of options to set different parameters such as rarity of certain minerals and abundance of fauna within a certain biome could help better identify which features are most necessary for a city to survive on the generated island. The relationships between certain resources and a city's size, initial position, curiosity and aggressiveness could be better identified. 
+
+No behavior was modeled between the cities at this point in the project, however, this could be a logical next step in the project's progression. This could eliminate cases when a city ends up entirely surrounded by another, and, as an extension, clearly unsuccessful cities could be wiped from the map entirely, allowing larger cities to expand further.
 
 \bibliographystyle{plain}
 \bibliography{report.bib}
