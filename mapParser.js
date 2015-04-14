@@ -29,6 +29,7 @@ function transformMap(mapObj, rand) {
   for (i = 0; i < grid.length; i++) {
     grid[i].blocked = (!!grid[i].water || !!grid[i].ocean || !!grid[i].river);
     grid[i].conquerability = grid[i].blocked ? 0 : grid[i].elevation + grid[i].trees - grid[i].trees;
+    grid[i].wildlife = grid[i].fauna;
 
     switch(grid[i].biome) {
         case 'VOLCANO':
@@ -43,46 +44,35 @@ function transformMap(mapObj, rand) {
         case 'SCORCHED':
         case 'SUBTROPICAL_DESERT':
           grid[i].fertility = 0;
-          grid[i].wildlife = rand(0, 10);
           break;
         case 'FISHING':
-          grid[i].wildlife = rand(80, 100);
           break;
         case 'BEACH':
           grid[i].fertility = rand(0, 10);
-          grid[i].wildlife = rand(0, 10);
           break;
         case 'TAIGA':
           grid[i].fertility = rand(20, 50);
-          grid[i].wildlife = rand(20, 30);
           break;
         case 'SHRUBLAND':
           grid[i].fertility = rand(0, 20);
-          grid[i].wildlife = rand(0, 40);
           break;
         case 'TEMPERATE_DESERT':
           grid[i].fertility = rand(0, 5);
-          grid[i].wildlife = rand(0, 5);
           break;
         case 'TEMPERATE_RAIN_FOREST':
           grid[i].fertility = rand(40, 80);
-          grid[i].wildlife = rand(40, 100);
           break;
         case 'TEMPERATE_DECIDUOUS_FOREST':
           grid[i].fertility = rand(50, 70);
-          grid[i].wildlife = rand(30, 90);
           break;
         case 'GRASSLAND':
           grid[i].fertility = rand(70, 90);
-          grid[i].wildlife = rand(20, 80);
           break;
         case 'TROPICAL_RAIN_FOREST':
           grid[i].fertility = rand(70, 100);
-          grid[i].wildlife = rand(50, 100);
           break;
         case 'TROPICAL_SEASONAL_FOREST':
           grid[i].fertility = rand(70, 90);
-          grid[i].wildlife = rand(50, 100);
           break;
     }
 

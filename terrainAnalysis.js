@@ -3,27 +3,26 @@ var analyzeTerrain = function(island){
 
   var MAX_MODIF = 100;
 
-  var COPPER_MODIF = 5;
-  var SILVER_MODIF = 5;
-  var COAL_MODIF = 5;
-  var ZINC_MODIF = 5;
-  var NICKEL_MODIF = 5;
-  var IRON_MODIF = 10;
+  var COPPER_MODIF = 10;
+  var SILVER_MODIF = 10;
+  var COAL_MODIF = 10;
+  var ZINC_MODIF = 10;
+  var NICKEL_MODIF = 10;
+  var IRON_MODIF = 15;
   var ALUMINIUM_MODIF = 15;
   var LEAD_MODIF = 15;
-  var GOLD_MODIF = 30;
-  var GEMS_MODIF = 40;
-  var URANIUM_MODIF = 40;
-  var TITANIUM_MODIF = 40;
+  var GOLD_MODIF = 60;
+  var GEMS_MODIF = 70;
+  var URANIUM_MODIF = 80;
+  var TITANIUM_MODIF = 80;
 
-  var MEAT_MODIF = 5;
-  var VEGETABLES_MODIF = 5;
+  var MEAT_MODIF = 2;
+  var VEGETABLES_MODIF = 2;
 
   var ARTISTIS_RATIO = 0.7;
   var WORKER_STRENGTH = 0.2;
   var MAX_TECH = TITANIUM_MODIF * 100;
   var TECH_GROWTH = 2;
-  var WORK_EFFICIENCY = 0.3;
   var ARMY_WORK_EFFICIENCY = 0.1;
 
   var map = transformMap(island, rand);
@@ -302,7 +301,7 @@ var analyzeTerrain = function(island){
 
     var location = city.location;
     for (var i = 0; i < location.length; i++) {
-      var collectPower = (1 + city.technology / MAX_TECH) * (city.populationSize - city.artistNumber - city.armySize) * WORK_EFFICIENCY + city.armySize * ARMY_WORK_EFFICIENCY;
+      var collectPower = (1 + city.technology / MAX_TECH) * (city.populationSize - city.artistNumber - city.armySize) * WORKER_STRENGTH + city.armySize * ARMY_WORK_EFFICIENCY;
       wood += ~~Math.min(location[i].trees, collectPower);
       meat += ~~Math.min(location[i].wildlife * MEAT_MODIF, collectPower);
       vegetables += ~~Math.min(location[i].fertility * VEGETABLES_MODIF, collectPower);
