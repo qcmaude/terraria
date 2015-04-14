@@ -33,6 +33,32 @@ INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/caption/caption3.sty
 INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/caption/caption3.sty
 INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/caption/subcaption.sty
 INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/caption/subcaption.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/listings/listings.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/listings/listings.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/listings/listings.cfg
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/listings/listings.cfg
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/color.cfg
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/color.cfg
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/mh/mathtools.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/mh/mathtools.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/tools/calc.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/tools/calc.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/mh/mhsetup.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/mh/mhsetup.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsmath.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsmath.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amstext.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amstext.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsgen.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsgen.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsbsy.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsbsy.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/amsmath/amsopn.sty
 INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/report.aux
 INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/report.aux
 OUTPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/report.aux
@@ -73,6 +99,9 @@ INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
+INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
+INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 OUTPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/report.pdf
 INPUT /usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
@@ -92,12 +121,26 @@ INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/Relaxed.png
 INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/Relaxed.png
 INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/Relaxed.png
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/Biomes.png
+INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/Biomes.png
+INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/Biomes.png
+INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/mining.png
+INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/mining.png
+INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/mining.png
+INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
+INPUT /usr/local/texlive/2014/texmf-dist/tex/latex/base/omscmr.fd
 INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/report.bbl
 INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/report.bbl
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
 INPUT /Users/Maude/Desktop/COMP 521/Project/terraria/docs/report.aux
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
+INPUT /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+INPUT /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
+INPUT /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
+INPUT /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
+INPUT /usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb

@@ -1,9 +1,18 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Borneman:2011:Online}
+Elizabeth Borneman.
+\newblock Gis and gaming, 2011.
 
 \bibitem{doi:10.1137/S0036144599352836}
 Qiang Du, Vance Faber, and Max Gunzburger.
 \newblock Centroidal voronoi tessellations: Applications and algorithms.
 \newblock {\em SIAM Review}, 41(4):637--676, 1999.
+
+\bibitem{9780939950812}
+Melinda Dyar and Mickey~E. Gunter.
+\newblock {\em Mineralogy And Optical Mineralogy}.
+\newblock Mineralogical Society of Amer, 2007.
 
 \bibitem{Fortune:1986:SAV:10515.10549}
 S~Fortune.
@@ -25,13 +34,48 @@ Raymond Hill.
 Christophe Le~Besnerais.
 \newblock Island.js, March 2015.
 
+\bibitem{Lehni:2015:Online}
+Jurg Lehni and Jonathan Puckey.
+\newblock Paper.js, March 2015.
+
+\bibitem{Martz:1997:Online}
+Paul Martz.
+\newblock Generating random fractal terrain.
+
+\bibitem{McCullough:2015:Online}
+Sean McCullough.
+\newblock Perlin noise classical js, February 2010.
+
+\bibitem{Parberry:2014}
+Ian Parberry.
+\newblock Designer worlds: Procedural generation of infinite terrain from
+  real-world elevation data.
+\newblock {\em Journal of Computer Graphics Techniques}, 2014.
+
 \bibitem{Patel:2010:Online}
 Amit Patel.
 \newblock "polygonal map generation for games", September 2010.
 
+\bibitem{Robinson:2008:Online}
+Mike Robinson.
+\newblock The tropical rain forest, October 2008.
+
 \bibitem{Verbrugge:1997:Online}
 Clark Verbrugge.
-\newblock Hex grids.
+\newblock Hex grids, 1996.
+
+\bibitem{Key}
+Lauri Viitanen.
+\newblock Physically based terrain generation: Procedural heightmap generation
+  using plate tectonics.
+\newblock Master's thesis, Helsinki Metropolia University of Applied Sciences,
+  2012.
+
+\bibitem{10.1109/MCG.2008.58}
+Benjamin Watson, Pascal M?, Oleg Veryovka, Andy Fuller, Peter Wonka, and Chris
+  Sexton.
+\newblock Procedural urban modeling in practice.
+\newblock {\em IEEE Computer Graphics and Applications}, 28(3):18--26, 2008.
 
 \bibitem{Watson01011981}
 D.~F. Watson.
