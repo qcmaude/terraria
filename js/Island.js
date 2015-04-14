@@ -679,34 +679,82 @@ var Island = {
 
     },
 
+    distanceCells: function(a, b) {
+        return Math.sqrt((a.site.x - b.site.x)*(a.site.x - b.site.x) + (a.site.y - b.site.y)*(a.site.y - b.site.y));
+    },
+
     plateTectonics: function() {
 
+        //Set up Astar
+        Astar.getWeight = function(to) {
+            return 1/(this.getRealElevation(to) + 1);
+        }.bind(this);
+
+        Astar.heuristicEstimate = function (p1, p2) {
+            return Math.abs(p1.site.x - p2.site.x) + Math.abs(p1.site.y - p2.site.y);
+        }
+
+        Astar.findNeighbours = function(space, a) {
+          var neighbours = a.getNeighborIds();
+          var ret = new Array(neighbours.length);
+          for (var i = 0; i < neighbours.length; i++) {
+            ret[i] = space[neighbours[i]];
+          }
+          return ret;
+        };
+
+        Astar.hashPoint = function (cell) {
+            return cell.site.x + "-" + cell.site.y;
+        }
+
         //Choose how many tectonic plates the island lies on
-        var random = this.getRandomInt(2,4);
+        // var random = this.getRandomInt(2,4);
+        random = 2;
 
         var maxA = 0;
-        var maxACell = {};
+        var maxACell = this.diagram.cells[0];
         var maxB = 0;
-        var maxBCell = {};
+        var maxBCell = this.diagram.cells[0];
         var maxC = 0;
-        var maxCCell = {};
+        var maxCCell = this.diagram.cells[0];
         var maxD = 0;
-        var maxDCell = {};
+        var maxDCell = this.diagram.cells[0];
+
+        var maxDist = this.config.width/10;
 
         for(var i = 0; i < this.diagram.cells.length; i++) {
             var cell = this.diagram.cells[i];
+
             if(this.getRealElevation(cell) >= maxA) {
                 maxA = this.getRealElevation(cell);
                 maxACell = cell;
-            } else if (this.getRealElevation(cell) >= maxB) {
+            } else if (this.getRealElevation(cell) >= maxB && 
+                this.distanceCells(maxACell, cell) > maxDist &&
+                this.distanceCells(maxCCell, cell) > maxDist &&
+                this.distanceCells(maxDCell, cell) > maxDist) {
                 maxB = this.getRealElevation(cell);
                 maxBCell = cell;
-            } else if (this.getRealElevation(cell) >= maxC) {
+            } else if (this.getRealElevation(cell) >= maxC && 
+                this.distanceCells(maxACell, cell) > maxDist &&
+                this.distanceCells(maxCCell, cell) > maxDist &&
+                this.distanceCells(maxDCell, cell) > maxDist) {
                 maxC = this.getRealElevation(cell);
                 maxCCell = cell;
-            } else if (this.getRealElevation(cell) >= maxD) {
+            } else if (this.getRealElevation(cell) >= maxD && 
+                this.distanceCells(maxACell, cell) > maxDist &&
+                this.distanceCells(maxCCell, cell) > maxDist &&
+                this.distanceCells(maxDCell, cell) > maxDist) {
                 maxD = this.getRealElevation(cell);
                 maxDCell = cell;
+            }
+        }
+
+        //Set up all valid edges
+        var edges = [];
+        for(var j = 0; j < this.diagram.cells.length; j++) {
+            var cell = this.diagram.cells[j];
+            if(cell.site.x == 0 || cell.site.y == 0 || cell.site.x == width-1 || cell.site.y == height-1) {
+                edges.push(cell);
             }
         }
 
@@ -715,19 +763,51 @@ var Island = {
                 //Two plates coming together; use two max values 
                 //to make a line determining where the plates come together.
                 //Choose a random point along the edge (either x = 0, y = 0, x = height, y = height)
+                //Call A-star
+                var path = Astar.findPath(this.diagram.cells, maxACell, maxBCell);
+                //Then pathfind from maxA to an edge and maxB to an edge.
                 
+                // Astar.getWeight = function(cell) {
+                    // return this.getRealElevation(cell);
+                // }.bind(this);
+                // console.log(maxACell, this.diagram.cells[0]);
+                // var aToEdge = Astar.findPath(this.diagram.cells, maxACell, this.diagram.cells[0]);
+
+                //Pathfind from maxB to edge.
+                // var bToEdge = Astar.findPath(this.diagram.cells, maxBCell, this.diagram.cells[this.diagram.cells.length-1]);
+
+                // var earthquakeRiskZone = path.concat(aToEdge);
+                // earthquakeRiskZone.concat(bToEdge);
+
+                for(var j = 0; j < path.length; j++) {
+                    var cell = path[j];
+                    cell.biome = 'VOLCANO';
+                }
+
+                // for(var j = 0; j < aToEdge.length; j++) {
+                //     var cell = aToEdge[j];
+                //     cell.biome = 'VOLCANO';
+                // }
+
+                // for(var j = 0; j < bToEdge.length; j++) {
+                //     var cell = bToEdge[j];
+                //     cell.biome = 'VOLCANO';
+                // }
+
                 break;
             case 3:
-                //Three plates coming together; calculate polygons
+                //Three plates coming together; calculate borders between the different fissures.
+                var path = Astar.findPath(this.diagram.cells, maxACell, maxBCell);
+                console.log(path, maxACell, maxBCell);
                 break;
             case 4:
-                //Four plates coming together; calculate polygons
+                //Three plates coming together; calculate borders between the different fissures.
+                var path = Astar.findPath(this.diagram.cells, maxACell, maxBCell);
+                console.log(path, maxACell, maxBCell);
                 break;
             default:
                 break;
         }
-
-        this.
 
     },
     

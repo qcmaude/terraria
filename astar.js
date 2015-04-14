@@ -27,11 +27,12 @@ function hashPoint(p) {
 }
 
 function comparePoints(p1, p2) {
-  return p1.x === p2.x && p1.y === p2.y;
+  return Astar.hashPoint(p1) === Astar.hashPoint(p2);
 }
 
 function findPath(space, start, end){
   var isFunc = (typeof end == "function");
+  var hashPoint = Astar.hashPoint;
   var openSet = [start];
   var closedSet = [];
   var cameFrom = {};
@@ -88,7 +89,7 @@ function findPath(space, start, end){
 }
 
 function heuristicEstimate(p1, p2) {
-  return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p1.y);
+  return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
 }
 
 function findNeighbours(space, p) {
@@ -113,8 +114,8 @@ function getWeight(node) {
 function constructPath(cameFrom, end) {
   var cur = end;
   var path = [cur];
-  while(cameFrom[hashPoint(cur)] !== undefined) {
-    cur = cameFrom[hashPoint(cur)];
+  while(cameFrom[Astar.hashPoint(cur)] !== undefined) {
+    cur = cameFrom[Astar.hashPoint(cur)];
     path.push(cur);
   }
 
@@ -130,7 +131,8 @@ var Astar = {
   getWeight: getWeight,
   findNeighbours: findNeighbours,
   findPath: findPath,
-  heuristicEstimate: heuristicEstimate
+  heuristicEstimate: heuristicEstimate,
+  hashPoint: hashPoint
 };
 
-module.exports = Astar;
+// module.exports = Astar;
