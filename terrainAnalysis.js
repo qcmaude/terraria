@@ -155,7 +155,7 @@ var analyzeTerrain = function(island){
 
     // console.log(city.aggressiveness, city.curiosity);
     // if(totalCities === 1) {
-      for (var i = 0; i < 6; i++) {
+      for (var i = 0; i < 7; i++) {
         updateCity(map, city);
       }
       // console.log(city.location.length);

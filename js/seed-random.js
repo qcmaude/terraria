@@ -174,6 +174,6 @@ var seedRandom = (function() {
   return seedRandom;
 })();
 
-// var randFunc = Math.random;
-var randFunc = seedRandom("asdasdas");
-Math.random = randFunc;
+var randFunc = Math.random;
+// var randFunc = seedRandom("asdasdas");
+// Math.random = randFunc;
