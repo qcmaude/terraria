@@ -1,9 +1,42 @@
-@article{greenwade93,
-    author  = "George D. Greenwade",
-    title   = "The {C}omprehensive {T}ex {A}rchive {N}etwork ({CTAN})",
-    year    = "1993",
-    journal = "TUGBoat",
-    volume  = "14",
-    number  = "3",
-    pages   = "342--351"
-}
+\begin{thebibliography}{1}
+
+\bibitem{doi:10.1137/S0036144599352836}
+Qiang Du, Vance Faber, and Max Gunzburger.
+\newblock Centroidal voronoi tessellations: Applications and algorithms.
+\newblock {\em SIAM Review}, 41(4):637--676, 1999.
+
+\bibitem{Fortune:1986:SAV:10515.10549}
+S~Fortune.
+\newblock A sweepline algorithm for voronoi diagrams.
+\newblock In {\em Proceedings of the Second Annual Symposium on Computational
+  Geometry}, SCG '86, pages 313--322, New York, NY, USA, 1986. ACM.
+
+\bibitem{Genevaux:2013:TGU:2461912.2461996}
+Jean-David G{\'e}nevaux, \'{E}ric Galin, Eric Gu{\'e}rin, Adrien Peytavie, and
+  Bed\v{r}ich Bene\v{s}.
+\newblock Terrain generation using procedural models based on hydrology.
+\newblock {\em ACM Trans. Graph.}, 32(4):143:1--143:13, July 2013.
+
+\bibitem{Hill:2015:Online}
+Raymond Hill.
+\newblock Javascript-voronoi, March 2015.
+
+\bibitem{LeBesnec:2015:Online}
+Christophe Le~Besnerais.
+\newblock Island.js, March 2015.
+
+\bibitem{Patel:2010:Online}
+Amit Patel.
+\newblock "polygonal map generation for games", September 2010.
+
+\bibitem{Verbrugge:1997:Online}
+Clark Verbrugge.
+\newblock Hex grids.
+
+\bibitem{Watson01011981}
+D.~F. Watson.
+\newblock Computing the n-dimensional delaunay tessellation with application to
+  voronoi polytopes.
+\newblock {\em The Computer Journal}, 24(2):167--172, 1981.
+
+\end{thebibliography}

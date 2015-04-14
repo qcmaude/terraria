@@ -39,6 +39,15 @@ var DISPLAY_COLORS = {
     VOLCANO_OUTLINE: new paper.Color('#414141')
 };
 
+var CITY_COLORS = {
+    ONE: new paper.Color('#800080'),
+    TWO: new paper.Color('#0000b4'),
+    THREE: new paper.Color('#ffbf00'),
+    FOUR: new paper.Color('#ff3f00'),
+    FIVE: new paper.Color('#00b4b4'),
+    SIX: new paper.Color('#ce0067')
+};
+
 var Island = {
     config: {
         width: 500,
@@ -67,6 +76,7 @@ var Island = {
     cellsLayer: null,
     riversLayer: null,
     debugLayer: null,
+    cities: 0,
 
     init: function (userConfig) {        
         if (userConfig == undefined) {
@@ -765,45 +775,23 @@ var Island = {
                 //Choose a random point along the edge (either x = 0, y = 0, x = height, y = height)
                 //Call A-star
                 var path = Astar.findPath(this.diagram.cells, maxACell, maxBCell);
-                //Then pathfind from maxA to an edge and maxB to an edge.
                 
-                // Astar.getWeight = function(cell) {
-                    // return this.getRealElevation(cell);
-                // }.bind(this);
-                // console.log(maxACell, this.diagram.cells[0]);
-                // var aToEdge = Astar.findPath(this.diagram.cells, maxACell, this.diagram.cells[0]);
+                //Then path-find from maxA to an edge and maxB to an edge.
 
-                //Pathfind from maxB to edge.
-                // var bToEdge = Astar.findPath(this.diagram.cells, maxBCell, this.diagram.cells[this.diagram.cells.length-1]);
-
-                // var earthquakeRiskZone = path.concat(aToEdge);
-                // earthquakeRiskZone.concat(bToEdge);
-
-                for(var j = 0; j < path.length; j++) {
-                    var cell = path[j];
-                    cell.biome = 'VOLCANO';
-                }
-
-                // for(var j = 0; j < aToEdge.length; j++) {
-                //     var cell = aToEdge[j];
-                //     cell.biome = 'VOLCANO';
-                // }
-
-                // for(var j = 0; j < bToEdge.length; j++) {
-                //     var cell = bToEdge[j];
+                // Debugging
+                // for(var j = 0; j < path.length; j++) {
+                //     var cell = path[j];
                 //     cell.biome = 'VOLCANO';
                 // }
 
                 break;
             case 3:
                 //Three plates coming together; calculate borders between the different fissures.
-                var path = Astar.findPath(this.diagram.cells, maxACell, maxBCell);
-                console.log(path, maxACell, maxBCell);
+                //var path = Astar.findPath(this.diagram.cells, maxACell, maxBCell);
                 break;
             case 4:
-                //Three plates coming together; calculate borders between the different fissures.
-                var path = Astar.findPath(this.diagram.cells, maxACell, maxBCell);
-                console.log(path, maxACell, maxBCell);
+                //Four plates coming together; calculate borders between the different fissures.
+                //var path = Astar.findPath(this.diagram.cells, maxACell, maxBCell);
                 break;
             default:
                 break;
@@ -1110,6 +1098,9 @@ var Island = {
                 c = DISPLAY_COLORS[key.toUpperCase()].clone();
             }
         }
+        if(cell.city) {
+            c = CITY_COLORS[cell.city].clone();
+        }
         c.brightness = c.brightness - this.getShade(cell);
         return c;
     },
@@ -1170,6 +1161,14 @@ var Island = {
         console.log(this.diagram);
         // var str = JSON.stringify(this.diagram);
         // console.log(str);
+    },
+
+    drawCity: function(cells) {
+        for(var i = 0; i < cells.length; i++) {
+            var cell = cells[i];
+            cell.city = cities;
+        }
+        cities++;
     }
 
 };

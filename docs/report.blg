@@ -2,52 +2,54 @@ This is BibTeX, Version 0.99d (TeX Live 2014)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: report.aux
 The style file: plain.bst
-I found no \citation commands---while reading file report.aux
-Database file #1: bib.bib
-I was expecting a `,' or a `}'---line 3 of file bib.bib
- :  
- :  author = "Clark Verbrugge",
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-You've used 0 entries,
+Database file #1: report.bib.bib
+Warning--entry type for "Patel:2010:Online" isn't style-file defined
+--line 1 of file report.bib.bib
+Warning--entry type for "LeBesnec:2015:Online" isn't style-file defined
+--line 9 of file report.bib.bib
+Warning--entry type for "Hill:2015:Online" isn't style-file defined
+--line 19 of file report.bib.bib
+Warning--entry type for "Verbrugge:1997:Online" isn't style-file defined
+--line 29 of file report.bib.bib
+You've used 8 entries,
             2118 wiz_defined-function locations,
-            497 strings with 3988 characters,
-and the built_in function-call counts, 18 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 7
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
+            551 strings with 5137 characters,
+and the built_in function-call counts, 2358 in all, are:
+= -- 227
+> -- 88
+< -- 1
++ -- 37
+- -- 28
+* -- 151
+:= -- 382
+add.period$ -- 21
+call.type$ -- 8
+change.case$ -- 38
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+cite$ -- 8
+duplicate$ -- 84
+empty$ -- 214
+format.name$ -- 28
+if$ -- 503
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 3
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 8
+missing$ -- 4
+newline$ -- 39
+num.names$ -- 16
+pop$ -- 51
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 30
 quote$ -- 0
-skip$ -- 1
+skip$ -- 74
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 155
+swap$ -- 17
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
+type$ -- 32
 warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 2
-(There were 2 error messages)
+while$ -- 23
+width$ -- 9
+write$ -- 80
+(There were 4 warnings)
