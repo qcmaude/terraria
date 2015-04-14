@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<title>Map</title>
-        
+
         <link href="css/map.css" rel="stylesheet">
 
         <script type="text/javascript" src="js/rhill-voronoi-core.min.js"></script>
@@ -14,17 +14,19 @@
         <script type="text/javascript" src="js/seed-random.js"></script>
         <script type="text/javascript" src="astar.js"></script>
         <script type="text/javascript" src="js/Island.js"></script>
+        <script type="text/javascript" src="mapParser.js"></script>
+        <script type="text/javascript" src="terrainAnalysis.js"></script>
 	</head>
 
 	<body>
         <canvas id="island" resize="true"></canvas>
         <canvas id="fishing" resize="true"></canvas>
         <canvas id="perlin" hidden="true"></canvas>
-        
+
         <script type="application/javascript">
-            
-            var height = 1000;
-            var width = 1000;
+
+            var height = 900;
+            var width = 900;
 
             paper.install(window);
             document.getElementById("perlin")
@@ -45,14 +47,14 @@
                     perlinWidth: 350,
                     perlinHeight: 350,
                     allowDebug: false,
-                    nbSites:50000,
+                    nbSites:40000,
                     maxRiversSize: 1000,
                     shading:0,
                     nbGraphRelaxation: 0,
                     shadeOcean:false,
                     // allowDebug: true
                 });
-
+                analyzeTerrain(Island);
             };
 
         </script>
